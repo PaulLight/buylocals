@@ -2,7 +2,7 @@
   <div class="register">
     <h1>Register Page</h1>
     <section class="form">
-      <form class="add-user" @submit.prevent="submit">
+      <form class="add-user" @submit.prevent="register">
         <div class="field">
           <label class="label">Name</label>
           <div class="control">
@@ -37,6 +37,8 @@
 </template>
 
 <script>
+import AuthenticationService from '@/services/AuthenticationService';
+
 export default {
   name: 'Register',
   components: {
@@ -51,8 +53,12 @@ export default {
     }
   },
   methods: {
-    submit() {
-
+    async register() {
+      const response = await AuthenticationService.register({
+        email: this.form.email,
+        password: this.form.password
+      })
+      console.log(response.data)
     }
   }
 };
