@@ -2,36 +2,34 @@
   <div class="register">
     <h1>Register Page</h1>
     <section class="form">
-      <form class="add-user" @submit.prevent="register">
-        <div class="field">
-          <label class="label">Name</label>
-          <div class="control">
-            <input v-model="form.name"
-                   class="input"
-                   type="text"
-                   placeholder="name">
-          </div>
+      <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+          <input v-model="form.name"
+                 class="input"
+                 type="text"
+                 placeholder="name">
         </div>
-        <div class="field">
-          <label class="label">Email</label>
-          <div class="control">
-            <input v-model="form.email"
-                   class="input"
-                   type="email"
-                   placeholder="email">
-          </div>
+      </div>
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control">
+          <input v-model="form.email"
+                 class="input"
+                 type="email"
+                 placeholder="email">
         </div>
-        <div class="field">
-          <label class="label">Password</label>
-          <div class="control">
-            <input v-model="form.password"
-                   class="input"
-                   type="password"
-                   placeholder="password">
-          </div>
+      </div>
+      <div class="field">
+        <label class="label">Password</label>
+        <div class="control">
+          <input v-model="form.password"
+                 class="input"
+                 type="password"
+                 placeholder="password">
         </div>
-        <button type="submit">Register</button>
-      </form>
+      </div>
+      <button type="submit" @click="register">Register</button>
     </section>
   </div>
 </template>
@@ -41,8 +39,7 @@ import AuthenticationService from '@/services/AuthenticationService';
 
 export default {
   name: 'Register',
-  components: {
-  },
+  components: {},
   data() {
     return {
       form: {
@@ -54,11 +51,16 @@ export default {
   },
   methods: {
     async register() {
-      const response = await AuthenticationService.register({
-        email: this.form.email,
-        password: this.form.password
-      })
-      console.log(response.data)
+      try {
+        const response = await AuthenticationService.register({
+          email: this.form.email,
+          password: this.form.password
+        })
+        console.log(response.data)
+      } catch (err) {
+
+        console.log(err)
+      }
     }
   }
 };
